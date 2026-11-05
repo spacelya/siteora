@@ -1,0 +1,6 @@
+const menu = document.querySelector('.menu');
+const nav = document.querySelector('nav');
+menu?.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open); });
+nav?.addEventListener('click', event => { if (event.target.closest('a')) { menu.setAttribute('aria-expanded','false'); nav.classList.remove('open'); } });
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav?.classList.contains('open')) { nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.focus(); } });
+document.querySelector('#brief-form')?.addEventListener('submit', event => { event.preventDefault(); const data = new FormData(event.currentTarget); const body = `Hello Adam,\n\nMy name is ${data.get('name')}.\nBusiness/project: ${data.get('business')}\n\n${data.get('message')}\n\nSent from the Siteora project brief.`; window.location.href = `mailto:dmbouss@gmail.com?subject=${encodeURIComponent('Website enquiry — '+data.get('business'))}&body=${encodeURIComponent(body)}`; document.querySelector('#form-status').textContent = 'Your email draft is ready to open in your mail app. Review it and press Send there. Nothing has been sent by this website.'; });
